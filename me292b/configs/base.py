@@ -29,23 +29,24 @@ class TrainConfig(Dict):
 
         # Exploration:
         # Adjust the training configuration
+        # Choose the following parameters based on your GPUs. 
         
         ## training config
-        self.training.batch_size = 256
+        self.training.batch_size = 64
         self.training.num_steps = 200000
         self.training.num_data_workers = 4
 
         ## validation config
         self.validation.enabled = True
-        self.validation.batch_size = 100
+        self.validation.batch_size = 64
         self.validation.num_data_workers = 4
         self.validation.every_n_steps = 1000
         self.validation.num_steps_per_epoch = 100
         
         ## test config
         self.test.enabled = True
-        self.test.batch_size = 200
-        self.test.num_data_workers = 16
+        self.test.batch_size = 64
+        self.test.num_data_workers = 4
         self.test.every_n_steps = 1000
         self.test.num_steps_per_epoch = 100
         
@@ -85,33 +86,36 @@ class BehaviorCloningConfig(AlgoConfig):
         self.future_num_frames = 30
         self.step_time = 0.1
         self.render_ego_history = False
-        self.decoder.layer_dims = (128,128)
+        self.decoder.layer_dims = () # you can make the decoder more complex
         self.decoder.state_as_input = True
         
    
 
         # Exploration:
         # You can choose whether to use dynamic layers
-        self.dynamics.type = "Unicycle"
-        self.dynamics.max_steer = 0.5
-        self.dynamics.max_yawvel = math.pi * 2.0
-        self.dynamics.acce_bound = (-10, 8)
-        self.dynamics.ddh_bound = (-math.pi * 2.0, math.pi * 2.0)
-        self.dynamics.max_speed = 40.0  # roughly 90mph
         
+        self.dynamics.type = None
         
-        # self.decoder.layer_dims = ()
-        # self.decoder.state_as_input = True
+        # # This is an example of dynamic layer parameters
+        # self.dynamics.type = "Unicycle"
+        # self.dynamics.max_steer = 0.5
+        # self.dynamics.max_yawvel = math.pi * 2.0
+        # self.dynamics.acce_bound = (-10, 8)
+        # self.dynamics.ddh_bound = (-math.pi * 2.0, math.pi * 2.0)
+        # self.dynamics.max_speed = 40.0  # roughly 90mph
 
-        # # Exploration:
-        # # You can choose whether to use dynamic layers
-        # self.dynamics.type = None
 
-
+        # Exploration:
+        # You can choose the weights of your loss function
+        
         self.loss_weights.prediction_loss = 1.0
         self.loss_weights.goal_loss = 0.0
         self.loss_weights.yaw_reg_loss = 0.001
 
+
+        # Exploration:
+        # You can change the learning rate and its schedule.
+        
         self.optim_params.predictor.learning_rate.initial = 1e-3  # predictor learning rate
         self.optim_params.predictor.learning_rate.decay_factor = (
             0.1  # factor to decay LR by (if epoch schedule non-empty)

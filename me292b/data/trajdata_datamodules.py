@@ -76,7 +76,7 @@ class UnifiedDataModule(pl.LightningDataModule):
         
         return DataLoader(
             dataset=self.train_dataset,
-            shuffle=True,
+            shuffle=False,
             batch_size=self._train_config.training.batch_size,
             num_workers=self._train_config.training.num_data_workers,
             drop_last=True,

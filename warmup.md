@@ -41,14 +41,14 @@ Follow these steps to create and activate a new Conda environment:
     ```
 
     Including the `interaction` module adds functionalities tailored for interaction-aware traffic simulation.
-5. ```sh
+5. **Install requirements for this base model**:
+    ```sh
     pip install -e .
     ```
-
-One may need to do the following
-```sh
-pip install torch==1.11.0+cu113 torchvision==0.12.0+cu113 torchaudio==0.11.0 torchmetrics==0.11.1 torchtext --extra-index-url https://download.pytorch.org/whl/cu113 
-```
+6. **Install Pytorch**:
+    ```sh
+    pip install torch==1.11.0+cu113 torchvision==0.12.0+cu113 torchaudio==0.11.0 torchmetrics==0.11.1 torchtext --extra-index-url https://download.pytorch.org/whl/cu113 
+    ```
 
 
 
@@ -73,7 +73,7 @@ python scripts/train.py --dataset_path <Your path to Interaction Dataset> --outp
 ```
 For example,
 ```sh
-python scripts/train.py --dataset_path <Your path to Interaction Dataset> --output_dir experiments/base_model
+python scripts/train.py --dataset_path /home/root/root/me292/prediction/interaction/INTERACTION-Dataset-DR-single-v1_2 --output_dir experiments/base_model
 ```
 
 #### Debug your model. It will generate 100 images with your predicted trajectories.
@@ -82,7 +82,7 @@ python scripts/train.py --dataset_path <Your path to Interaction Dataset> --outp
 ```
 For example,
 ```sh
-python scripts/train.py --dataset_path /home/root/root/me292/prediction/interaction/INTERACTION-Dataset-DR-single-v1_2  --output_dir res --checkpoint experiments/base_model/checkpoints/iter35000.ckpt --debug
+python scripts/train.py --dataset_path /home/root/root/me292/prediction/interaction/INTERACTION-Dataset-DR-single-v1_2  --output_dir experiments/base_model --checkpoint experiments/base_model/checkpoints/iter35000.ckpt --debug
 ```
 And the images will be saved in **visualize** folder.
 
@@ -92,7 +92,7 @@ python scripts/train.py --dataset_path <Your path to Interaction Dataset> --outp
 ```
 For example,
 ```sh
-python scripts/train.py --dataset_path /home/root/root/me292/prediction/interaction/INTERACTION-Dataset-DR-single-v1_2  --output_dir res --checkpoint experiments/base_model/checkpoints/iter35000.ckpt --mode test
+python scripts/train.py --dataset_path /home/yixiao/yixiao/me292/prediction/interaction/INTERACTION-Dataset-DR-single-v1_2  --output_dir experiments/base_model --checkpoint experiments/base_model_1/checkpoints/iter35000.ckpt --mode test
 ```
 
 ### Possible approach to improve the base model

@@ -26,25 +26,17 @@ def main(train_cfg, algo_cfg, debug=False, root_dir = "", mode = 'train', checkp
     datamodule = UnifiedDataModule(algo_config=algo_cfg, train_config=train_cfg)
 
     # ------ Model ---------------------
-    model = BehaviorCloning.load_from_checkpoint(
-            algo_config=algo_cfg, 
-            modality_shapes=datamodule.modality_shapes,
-            checkpoint_path=checkpoint
+    if checkpoint is not None:
+        model = BehaviorCloning.load_from_checkpoint(
+                algo_config=algo_cfg, 
+                modality_shapes=datamodule.modality_shapes,
+                checkpoint_path=checkpoint
+            )
+    else:
+        model = BehaviorCloning(
+            algo_config = algo_cfg,
+            modality_shapes=datamodule.modality_shapes
         )
-    
-    # model = BehaviorCloning(
-    #     algo_config = algo_cfg,
-    #     modality_shapes=datamodule.modality_shapes
-    # )
-    # if checkpoint is not None:
-    #     model.load_from_checkpoint(checkpoint, algo_config=algo_cfg, modality_shapes=datamodule.modality_shapes)
-    #     checkpoint_state_dict = torch.load(checkpoint, map_location=lambda storage, loc: storage) 
-    #     for (ck, cp) in checkpoint_state_dict.items():
-    #         for (mk, mp) in model.state_dict().items():
-    #             print(ck,cp,mk,mp)
-    #         break
-
-    
     
     # a ckpt monitor to save at fixed interval
     train_callbacks=[]
