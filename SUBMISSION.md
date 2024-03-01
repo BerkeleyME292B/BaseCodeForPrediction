@@ -1,0 +1,3 @@
+### SUBMISSION
+- **Submission to Challenge** After you run the test command, the predicted trajectories will be stored in *submission* folder. Download this folder and compress it into *.zip* file. Then submit it on [Challenge](https://challenge.interaction-dataset.com/upload/), your method name should be in the form of "ME292B_YourName". You can use any names you like. For instance, "ME292B_cat". Choose SelectTrack Type as *Single Agent*.
+- **Submission via GitHub** Please upload your report, and the ckpt you use to generate the file on the challenge in *submission_github* folder. And your name on the Challenge should also be uploaded in *submission_github* folder. For example, *cat.txt*.
