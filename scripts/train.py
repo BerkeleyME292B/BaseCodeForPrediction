@@ -2,7 +2,7 @@ import argparse
 import sys
 import os
 # Set your CUDA visible devices:
-os.environ['CUDA_VISIBLE_DEVICES'] = '3,'
+# os.environ['CUDA_VISIBLE_DEVICES'] = '3,'
 
 import torch
 
