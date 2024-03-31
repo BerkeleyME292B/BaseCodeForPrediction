@@ -3,7 +3,7 @@ import numpy as np
 from collections import defaultdict
 from torch.utils.data import Dataset
 import pytorch_lightning as pl
-from torch.utils.data import DataLoader
+from torch.utils.data import DataLoader, Subset
 
 from trajdata import AgentBatch, AgentType, UnifiedDataset
 
@@ -97,12 +97,15 @@ class UnifiedDataModule(pl.LightningDataModule):
         )
 
     def test_dataloader(self, return_dict = True):
+        pred_ids = np.load('extra_files/pred_ids.npy')
+        pred_dataset= Subset(self.test_dataset, pred_ids)
+        
         return DataLoader(
-            dataset=self.test_dataset,
+            dataset=pred_dataset,
             shuffle=False,
             batch_size=self._train_config.test.batch_size,
             num_workers=self._train_config.test.num_data_workers,
-            drop_last=True,
+            drop_last=False,
             collate_fn=self.test_dataset.get_collate_fn(return_dict=return_dict),
             persistent_workers=True if self._train_config.test.num_data_workers>0 else False
         )

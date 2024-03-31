@@ -60,6 +60,14 @@ class RasterizedMapEncoder(nn.Module):
                 self.map_model.fc = nn.Identity()
         elif model_arch == "mobilenet_v2":
             mobilenet = mobilenet_v2()
+            
+            # Exploration:
+            # You can use pretrained model as the backbone, and finetune for the prediction task.
+            # Note that the pretrained model is trained for the image task, not for prediction task.
+            # However, it still can accelerate the training.
+            
+            # mobilenet = mobilenet_v2(pretrained=True)
+            
             out_h = int(math.ceil(input_image_shape[1] / 32.))
             out_w = int(math.ceil(input_image_shape[2] / 32.))
             # self.conv_out_shape = (512, out_h, out_w)
@@ -84,6 +92,12 @@ class RasterizedMapEncoder(nn.Module):
             
             # Assign the modified mobilenet back to self.map_model
             self.map_model = mobilenet
+            
+            # Exploration:
+            # We provide a pretrained model trained for prediction task.
+            
+            # state_dict_load = torch.load('extra_files/mn_pretrained.pkl')
+            # self.map_model.load_state_dict(state_dict_load)
            
 
     def output_shape(self, input_shape=None):

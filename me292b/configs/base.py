@@ -32,20 +32,20 @@ class TrainConfig(Dict):
         # Choose the following parameters based on your GPUs. 
         
         ## training config
-        self.training.batch_size = 64
+        self.training.batch_size = 16
         self.training.num_steps = 200000
         self.training.num_data_workers = 4
 
         ## validation config
         self.validation.enabled = True
-        self.validation.batch_size = 64
+        self.validation.batch_size = 16
         self.validation.num_data_workers = 4
         self.validation.every_n_steps = 1000
         self.validation.num_steps_per_epoch = 100
         
         ## test config
         self.test.enabled = True
-        self.test.batch_size = 64
+        self.test.batch_size = 16
         self.test.num_data_workers = 4
         self.test.every_n_steps = 1000
         self.test.num_steps_per_epoch = 100
@@ -116,7 +116,7 @@ class BehaviorCloningConfig(AlgoConfig):
         # Exploration:
         # You can change the learning rate and its schedule.
         
-        self.optim_params.predictor.learning_rate.initial = 1e-3  # predictor learning rate
+        self.optim_params.predictor.learning_rate.initial = 1e-4  # predictor learning rate
         self.optim_params.predictor.learning_rate.decay_factor = (
             0.1  # factor to decay LR by (if epoch schedule non-empty)
         )
