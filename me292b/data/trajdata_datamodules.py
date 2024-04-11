@@ -76,7 +76,7 @@ class UnifiedDataModule(pl.LightningDataModule):
         
         return DataLoader(
             dataset=self.train_dataset,
-            shuffle=False,
+            shuffle=True,
             batch_size=self._train_config.training.batch_size,
             num_workers=self._train_config.training.num_data_workers,
             drop_last=True,
@@ -88,21 +88,18 @@ class UnifiedDataModule(pl.LightningDataModule):
     def val_dataloader(self, return_dict = True):
         return DataLoader(
             dataset=self.valid_dataset,
-            shuffle=False,
+            shuffle=True,
             batch_size=self._train_config.validation.batch_size,
             num_workers=self._train_config.validation.num_data_workers,
-            drop_last=True,
+            drop_last=False,
             collate_fn=self.valid_dataset.get_collate_fn(return_dict=return_dict),
             persistent_workers=True if self._train_config.validation.num_data_workers>0 else False
         )
 
-    def test_dataloader(self, return_dict = True):
-        pred_ids = np.load('extra_files/pred_ids.npy')
-        pred_dataset= Subset(self.test_dataset, pred_ids)
-        
+    def test_dataloader(self, return_dict = True):        
         return DataLoader(
-            dataset=pred_dataset,
-            shuffle=False,
+            dataset=self.test_dataset,
+            shuffle=True,
             batch_size=self._train_config.test.batch_size,
             num_workers=self._train_config.test.num_data_workers,
             drop_last=False,
